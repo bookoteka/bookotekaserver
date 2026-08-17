@@ -1,0 +1,2 @@
+class Czasopismo < ApplicationRecord
+end

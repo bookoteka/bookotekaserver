@@ -1,0 +1,23 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  tytul: MyString
+  autor: MyString
+  nazwa_serii: MyString
+  jednotomowka: false
+  strony: 1
+  ocena: MyString
+  format_ksiazki: MyString
+  przeczytano_w: 2026-08-17
+  dnf: false
+
+two:
+  tytul: MyString
+  autor: MyString
+  nazwa_serii: MyString
+  jednotomowka: false
+  strony: 1
+  ocena: MyString
+  format_ksiazki: MyString
+  przeczytano_w: 2026-08-17
+  dnf: false

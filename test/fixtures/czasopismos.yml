@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  tytul: MyString
+  numer_wydania: MyString
+  strony: 1
+  przeczytano_w: 2026-08-17
+
+two:
+  tytul: MyString
+  numer_wydania: MyString
+  strony: 1
+  przeczytano_w: 2026-08-17

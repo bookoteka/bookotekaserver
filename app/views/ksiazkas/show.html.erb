@@ -1,0 +1,28 @@
+<h1><%= @ksiazka.tytul %></h1>
+
+<p><strong>Autor:</strong> <%= @ksiazka.autor.presence || "Brak danych" %></p>
+<p><strong>Nazwa serii:</strong> <%= @ksiazka.jednotomowka ? "Brak (jednotomówka)" : (@ksiazka.nazwa_serii.presence || "Brak danej") %></p>
+<p><strong>Jednotomówka:</strong> <%= @ksiazka.jednotomowka ? "Tak" : "Nie" %></p>
+<p><strong>Liczba stron:</strong> <%= @ksiazka.strony || "Brak danych" %></p>
+<p><strong>Ocena:</strong> <%= @ksiazka.ocena.presence || "Brak oceny" %></p>
+<p><strong>Format:</strong> <%= @ksiazka.format_ksiazki.presence || "Brak danych" %></p>
+<p><strong>Data przeczytania:</strong> <%= @ksiazka.przeczytano_w&.strftime("%Y-%m-%d") %></p>
+<p><strong>Status DNF:</strong> <%= @ksiazka.dnf ? "Tak (Nie ukończono)" : "Nie" %></p>
+
+<p>
+  <strong>Gatunki:</strong><br>
+  <% if @ksiazka.gatuneks.any? %>
+    <% @ksiazka.gatuneks.each do |gatunek| %>
+      <span style="display: inline-block; background: #e0e0e0; padding: 4px 8px; border-radius: 4px; margin-right: 4px; margin-top: 4px;">
+        <%= gatunek.nazwa %>
+      </span>
+    <% end %>
+  <% else %>
+    Brak przypisanych gatunków
+  <% end %>
+</p>
+
+<br>
+<%= link_to "Edytuj", edit_ksiazka_path(@ksiazka) %> |
+<%= link_to "Usuń", ksiazka_path(@ksiazka), data: { turbo_method: :delete, turbo_confirm: "Czy na pewno chcesz usunąć tę książkę?" } %> |
+<%= link_to "Powrót do listy książek", ksiazkas_path %>

@@ -1,0 +1,34 @@
+<h1>Rejestr książek</h1>
+
+<%= link_to "Dodaj nową książkę", new_ksiazka_path %>
+
+<br><br>
+
+<table border="1" cellpadding="8" style="border-collapse: collapse; width: 100%;">
+  <thead>
+    <tr style="background-color: #f2f2f2;">
+      <th>Tytuł</th>
+      <th>Autor</th>
+      <th>Seria</th>
+      <th>Format</th>
+      <th>Ocena</th>
+      <th>Gatunki</th>
+      <th>Akcje</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @ksiazkas.each do |ksiazka| %>
+      <tr>
+        <td><strong><%= ksiazka.tytul %></strong></td>
+        <td><%= ksiazka.autor %></td>
+        <td><%= ksiazka.nazwa_serii %></td>
+        <td><%= ksiazka.format_ksiazki %></td>
+        <td><%= ksiazka.ocena %></td>
+        <td><%= ksiazka.gatuneks.map(&:nazwa).join(", ") %></td>
+        <td>
+          <%= link_to "Pokaż", ksiazka_path(ksiazka) %> |
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
