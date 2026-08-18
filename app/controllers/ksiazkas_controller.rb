@@ -54,7 +54,7 @@ class KsiazkasController < ApplicationController
   def ksiazka_params
     params.require(:ksiazka).permit(
       :tytul, :autor, :nazwa_serii, :jednotomowka, :strony, 
-      :ocena, :format_ksiazki, :przeczytano_w, :dnf, 
+      :ocena, :format_ksiazki, :przeczytano_w, 
       gatunek_ids: []
     )
   end

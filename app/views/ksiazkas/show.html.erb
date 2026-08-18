@@ -7,7 +7,6 @@
 <p><strong>Ocena:</strong> <%= @ksiazka.ocena.presence || "Brak oceny" %></p>
 <p><strong>Format:</strong> <%= @ksiazka.format_ksiazki.presence || "Brak danych" %></p>
 <p><strong>Data przeczytania:</strong> <%= @ksiazka.przeczytano_w&.strftime("%Y-%m-%d") %></p>
-<p><strong>Status DNF:</strong> <%= @ksiazka.dnf ? "Tak (Nie ukończono)" : "Nie" %></p>
 
 <p>
   <strong>Gatunki:</strong><br>
