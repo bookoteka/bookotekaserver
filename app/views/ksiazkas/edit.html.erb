@@ -1,2 +1,134 @@
-<h1>Ksiazkas#edit</h1>
-<p>Find me in app/views/ksiazkas/edit.html.erb</p>
+<div class="max-w-2xl mx-auto bg-white p-6 sm:p-8 rounded-xl border border-slate-200/80 shadow-sm">
+  <h1 class="text-4xl font-bold mb-6 text-indigo-800">Edytuj książkę</h1>
+
+  <% if @ksiazka.errors.any? %>
+    <div class="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg text-red-700">
+      <h2 class="font-semibold mb-2">Formularz zawiera <%= @ksiazka.errors.count %> <%= @ksiazka.errors.count == 1 ? "błąd" : "błędy" %>:</h2>
+      <ul class="list-disc list-inside text-sm space-y-1">
+        <% @ksiazka.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= form_with(model: @ksiazka, local: true, class: "space-y-5") do |f| %>
+    <div>
+      <%= f.label :tytul, "Tytuł:" %><br>
+      <%= f.text_field :tytul, required: true, class: "w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 disabled:bg-slate-100 disabled:text-slate-400"  %>
+    </div>
+
+    <div>
+      <%= f.label :autor, "Autor:" %><br>
+      <%= f.text_field :autor, required: true, class: "w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 disabled:bg-slate-100 disabled:text-slate-400" %>
+    </div>
+
+    <div>
+      <%= f.check_box :jednotomowka, id: "jednotomowka_checkbox" %>
+      <%= f.label :jednotomowka, "Jednotomówka" %>
+    </div>
+
+    <div>
+      <%= f.label :nazwa_serii, "Nazwa serii:" %><br>
+      <%= f.text_field :nazwa_serii, id: "nazwa_serii_input", class: "w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 disabled:bg-slate-100 disabled:text-slate-400" %>
+    </div>
+
+    <div>
+      <%= f.label :strony, "Liczba stron:" %><br>
+      <%= f.number_field :strony, required: true, class: "w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 disabled:bg-slate-100 disabled:text-slate-400 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" %>
+    </div>
+
+    <div>
+      <%= f.label :ocena, "Ocena:" %><br>
+      <div class="relative">
+        <%= f.select :ocena, [
+          ["1/6 Grand Prix gówna", "1/6 Grand Prix gówna"],
+          ["2/6 Szkoda drzew", "2/6 Szkoda drzew"],
+          ["3/6 Ok", "3/6 Ok"],
+          ["4/6 Klasa", "4/6 Klasa"],
+          ["5/6 Złoto", "5/6 Złoto"],
+          ["6/6 Arcydzieło", "6/6 Arcydzieło"]
+        ], { include_blank: "Wybierz ocenę" }, 
+        { required: true, class: "w-full appearance-none rounded-lg border border-slate-300 px-3 py-2 pr-8 text-slate-900 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 cursor-pointer text-sm" } %>
+
+        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2.5 text-slate-500">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <%= f.label :format_ksiazki, "Format książki:" %><br>
+      <div class="relative">
+        <%= f.select :format_ksiazki, 
+            ["Papierowa", "E-book", "Audiobook"], 
+            { include_blank: "Wybierz format" }, 
+            { required: true, class: "w-full appearance-none rounded-lg border border-slate-300 px-3 py-2 pr-8 text-slate-900 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 cursor-pointer text-sm" } %>
+
+        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2.5 text-slate-500">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          </svg>
+        </div>
+      </div>
+    </div>
+    <hr>
+
+    <h3>Gatunki:</h3>
+    <div class="flex flex-wrap gap-2.5">
+      <% @gatunki.each do |gatunek| %>
+        <label class="px-4 py-2.5 rounded-lg border border-slate-300 bg-slate-50 hover:bg-slate-100 cursor-pointer flex items-center gap-2 text-sm text-slate-700 transition-colors has-[:checked]:border-indigo-600 has-[:checked]:bg-indigo-50/50 has-[:checked]:text-indigo-900">
+          <%= check_box_tag "ksiazka[gatunek_ids][]", gatunek.id, @ksiazka.gatunek_ids.include?(gatunek.id), class: "rounded border-slate-300 text-indigo-600 focus:ring-indigo-500" %>
+          <span><%= gatunek.nazwa %></span>
+        </label>
+      <% end %>
+    </div>
+    <hr class="border-slate-200 my-4">
+
+    <div class="pt-4 flex flex-col sm:flex-row items-center gap-3">
+      <%= f.submit "Zapisz zmiany", class: "w-full sm:w-auto px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-lg shadow-sm transition-colors cursor-pointer text-center" %>
+      
+      <%= link_to "Anuluj", ksiazka_path(@ksiazka), class: "w-full sm:w-auto px-6 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium rounded-lg transition-colors text-center" %>
+    </div>
+  <% end %>
+</div>
+
+<script>
+  document.addEventListener("turbo:load", function() {
+    const checkbox = document.getElementById("jednotomowka_checkbox");
+    const input = document.getElementById("nazwa_serii_input");
+    
+    if (checkbox && input) {
+      function toggleNazwaSerii() {
+        if (checkbox.checked) {
+          input.value = "";
+          input.disabled = true;
+          input.required = false;
+          input.style.backgroundColor = "#e9e9e9";
+          input.style.cursor = "not-allowed";
+        } else {
+          input.disabled = false;
+          input.required = true;
+          input.style.backgroundColor = "";
+          input.style.cursor = "text";
+        }
+      }
+      checkbox.addEventListener("change", toggleNazwaSerii);
+      toggleNazwaSerii();
+    }
+
+    const form = document.querySelector("form");
+    if (form) {
+      form.addEventListener("submit", function(event) {
+        const genreCheckboxes = document.querySelectorAll('input[name="ksiazka[gatunek_ids][]"]');
+        const isAnyChecked = Array.from(genreCheckboxes).some(cb => cb.checked);
+        if (!isAnyChecked) {
+          event.preventDefault();
+          alert("Proszę wybrać co najmniej jeden gatunek!");
+        }
+      });
+    }
+  });
+</script>

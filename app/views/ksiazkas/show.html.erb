@@ -1,27 +1,69 @@
-<h1><%= @ksiazka.tytul %></h1>
+<div class="max-w-3xl mx-auto bg-white p-6 sm:p-8 rounded-xl border border-slate-200/80 shadow-sm">
+  <div class="border-b border-slate-200 pb-5 mb-6">
+    <h1 class="text-3xl sm:text-4xl font-bold text-indigo-900 mb-2"><%= @ksiazka.tytul %></h1>
+    <p class="text-lg font-medium text-slate-600 capitalize">
+      Autor: <span class="text-slate-900 font-semibold"><%= @ksiazka.autor.presence || "Brak danych" %></span>
+    </p>
+  </div>
 
-<p><strong>Autor:</strong> <%= @ksiazka.autor.presence || "Brak danych" %></p>
-<p><strong>Nazwa serii:</strong> <%= @ksiazka.jednotomowka ? "Brak (jednotomówka)" : (@ksiazka.nazwa_serii.presence || "Brak danej") %></p>
-<p><strong>Jednotomówka:</strong> <%= @ksiazka.jednotomowka ? "Tak" : "Nie" %></p>
-<p><strong>Liczba stron:</strong> <%= @ksiazka.strony || "Brak danych" %></p>
-<p><strong>Ocena:</strong> <%= @ksiazka.ocena.presence || "Brak oceny" %></p>
-<p><strong>Format:</strong> <%= @ksiazka.format_ksiazki.presence || "Brak danych" %></p>
-<p><strong>Data przeczytania:</strong> <%= @ksiazka.przeczytano_w&.strftime("%Y-%m-%d") %></p>
-
-<p>
-  <strong>Gatunki:</strong><br>
-  <% if @ksiazka.gatuneks.any? %>
-    <% @ksiazka.gatuneks.each do |gatunek| %>
-      <span style="display: inline-block; background: #e0e0e0; padding: 4px 8px; border-radius: 4px; margin-right: 4px; margin-top: 4px;">
-        <%= gatunek.nazwa %>
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+    <div class="bg-slate-50 p-4 rounded-lg border border-slate-200/60">
+      <span class="text-xs font-semibold uppercase tracking-wider text-slate-500 block mb-1">Seria</span>
+      <span class="text-base font-medium text-slate-800">
+        <%= @ksiazka.jednotomowka ? "────────────────────" : (@ksiazka.nazwa_serii.presence || "Brak danych") %>
       </span>
-    <% end %>
-  <% else %>
-    Brak przypisanych gatunków
-  <% end %>
-</p>
+    </div>
 
-<br>
-<%= link_to "Edytuj", edit_ksiazka_path(@ksiazka) %> |
-<%= link_to "Usuń", ksiazka_path(@ksiazka), data: { turbo_method: :delete, turbo_confirm: "Czy na pewno chcesz usunąć tę książkę?" } %> |
-<%= link_to "Powrót do listy książek", ksiazkas_path %>
+    <div class="bg-slate-50 p-4 rounded-lg border border-slate-200/60">
+      <span class="text-xs font-semibold uppercase tracking-wider text-slate-500 block mb-1">Format</span>
+      <span class="text-base font-medium text-slate-800"><%= @ksiazka.format_ksiazki.presence || "Brak danych" %></span>
+    </div>
+
+    <div class="bg-slate-50 p-4 rounded-lg border border-slate-200/60">
+      <span class="text-xs font-semibold uppercase tracking-wider text-slate-500 block mb-1">Liczba stron</span>
+      <span class="text-base font-medium text-slate-800"><%= @ksiazka.strony || "Brak danych" %></span>
+    </div>
+
+    <div class="bg-slate-50 p-4 rounded-lg border border-slate-200/60">
+      <span class="text-xs font-semibold uppercase tracking-wider text-slate-500 block mb-1">Ocena</span>
+      <span class="text-base font-medium text-slate-800"><%= @ksiazka.ocena.presence || "Brak oceny" %></span>
+    </div>
+
+    <div class="bg-slate-50 p-4 rounded-lg border border-slate-200/60">
+      <span class="text-xs font-semibold uppercase tracking-wider text-slate-500 block mb-1">Miesiąc przeczytania</span>
+      <span class="text-base font-medium text-slate-800"><%= @ksiazka.zamien_miesiac_na_slowo || "Brak daty" %></span>
+    </div>
+
+    <div class="bg-slate-50 p-4 rounded-lg border border-slate-200/60">
+      <span class="text-xs font-semibold uppercase tracking-wider text-slate-500 block mb-1">Rok</span>
+      <span class="text-base font-medium text-slate-800"><%= @ksiazka.przeczytano_w&.year || "Brak daty" %></span>
+    </div>
+  </div>
+
+  <div class="mb-8">
+    <h3 class="text-sm font-semibold uppercase tracking-wider text-slate-500 mb-3">Gatunki:</h3>
+    <div class="flex flex-wrap gap-2">
+      <% if @ksiazka.gatuneks.any? %>
+        <% @ksiazka.gatuneks.each do |gatunek| %>
+          <span class="px-3 py-1.5 rounded-lg border border-indigo-200 bg-indigo-50 text-indigo-900 text-sm font-medium">
+            <%= gatunek.nazwa %>
+          </span>
+        <% end %>
+      <% else %>
+        <span class="text-slate-500 italic text-sm">Brak przypisanych gatunków</span>
+      <% end %>
+    </div>
+  </div>
+
+  <hr class="border-slate-200 mb-6">
+
+  <div class="flex flex-wrap items-center justify-between gap-3">
+    <div class="flex items-center gap-3">
+      <%= link_to "Edytuj", edit_ksiazka_path(@ksiazka), class: "px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-lg shadow-sm transition-colors text-sm" %>
+      
+      <%= link_to "Usuń", ksiazka_path(@ksiazka), data: { turbo_method: :delete, turbo_confirm: "Czy na pewno chcesz usunąć tę książkę?" }, class: "px-5 py-2.5 bg-red-50 hover:bg-red-100 text-red-600 font-medium rounded-lg border border-red-200 transition-colors text-sm" %>
+    </div>
+
+    <%= link_to "Powrót do listy", ksiazkas_path, class: "px-5 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium rounded-lg transition-colors text-sm" %>
+  </div>
+</div>

@@ -17,6 +17,38 @@ class Ksiazka < ApplicationRecord
 
   before_validation :clear_nazwa_serii_if_jednotomowka
 
+  # Funkcja zamiany nr miesiąca na słowo
+  def zamien_miesiac_na_slowo
+    case przeczytano_w&.month
+    when 1
+      "Styczeń"
+    when 2
+      "Luty"
+    when 3
+      "Marzec"
+    when 4
+      "Kwiecień"
+    when 5
+      "Maj"
+    when 6
+      "Czerwiec"
+    when 7
+      "Lipiec"
+    when 8
+      "Sierpień"
+    when 9
+      "Wrzesień"
+    when 10
+      "Październik"
+    when 11
+      "Listopad"
+    when 12
+      "Grudzień"
+    else
+      raise "Błąd alokacji miesiąca!"
+    end
+  end
+
   private
 
   def clear_nazwa_serii_if_jednotomowka
