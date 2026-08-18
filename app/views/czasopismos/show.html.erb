@@ -1,0 +1,42 @@
+<div class="max-w-3xl mx-auto bg-white p-6 sm:p-8 rounded-xl border border-slate-200/80 shadow-sm">
+  <div class="border-b border-slate-200 pb-5 mb-6">
+    <h1 class="text-3xl sm:text-4xl font-bold text-indigo-900 mb-2"><%= @czasopismo.tytul %></h1>
+    <p class="text-lg font-medium text-slate-600">
+      Numer wydania: <span class="text-slate-900 font-semibold"><%= @czasopismo.numer_wydania.presence || "Brak danych" %></span>
+    </p>
+  </div>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+    <div class="bg-slate-50 p-4 rounded-lg border border-slate-200/60">
+      <span class="text-xs font-semibold uppercase tracking-wider text-slate-500 block mb-1">Numer wydania</span>
+      <span class="text-base font-medium text-slate-800"><%= @czasopismo.numer_wydania.presence || "Brak danych" %></span>
+    </div>
+
+    <div class="bg-slate-50 p-4 rounded-lg border border-slate-200/60">
+      <span class="text-xs font-semibold uppercase tracking-wider text-slate-500 block mb-1">Liczba stron</span>
+      <span class="text-base font-medium text-slate-800"><%= @czasopismo.strony || "Brak danych" %></span>
+    </div>
+
+    <div class="bg-slate-50 p-4 rounded-lg border border-slate-200/60">
+      <span class="text-xs font-semibold uppercase tracking-wider text-slate-500 block mb-1">Miesiąc przeczytania</span>
+      <span class="text-base font-medium text-slate-800"><%= @czasopismo.zamien_miesiac_na_slowo || "Brak daty" %></span>
+    </div>
+
+    <div class="bg-slate-50 p-4 rounded-lg border border-slate-200/60">
+      <span class="text-xs font-semibold uppercase tracking-wider text-slate-500 block mb-1">Rok</span>
+      <span class="text-base font-medium text-slate-800"><%= @czasopismo.przeczytano_w&.year || "Brak daty" %></span>
+    </div>
+  </div>
+
+  <hr class="border-slate-200 mb-6">
+
+  <div class="flex flex-wrap items-center justify-between gap-3">
+    <div class="flex items-center gap-3">
+      <%= link_to "Edytuj", edit_czasopismo_path(@czasopismo), class: "px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-lg shadow-sm transition-colors text-sm" %>
+      
+      <%= link_to "Usuń", czasopismo_path(@czasopismo), data: { turbo_method: :delete, turbo_confirm: "Czy na pewno chcesz usunąć to czasopismo?" }, class: "px-5 py-2.5 bg-red-50 hover:bg-red-100 text-red-600 font-medium rounded-lg border border-red-200 transition-colors text-sm" %>
+    </div>
+
+    <%= link_to "Powrót do listy", root_path, class: "px-5 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium rounded-lg transition-colors text-sm" %>
+  </div>
+</div>

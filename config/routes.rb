@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
   # Standardowy komplet ścieżek RESTful dla książek
   resources :ksiazkas
+  resources :czasopismos
 
   # Sprawdzenie stanu aplikacji
   get "up" => "rails/health#show", as: :rails_health_check

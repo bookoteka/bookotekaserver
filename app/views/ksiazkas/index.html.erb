@@ -1,9 +1,9 @@
 <div style="padding: 1rem;">
-  <h1 class="text-5xl font-bold text-slate-800 mb-6">Rejestr książek</h1>
+  <h1 class="text-5xl font-bold text-indigo-900 mb-6">System Czytelniczy - Kacper</h1>
 
   <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
     <div class="bg-white p-5 rounded-xl border border-gray-200 shadow-sm">
-      <span class="text-sm font-medium text-gray-500 uppercase tracking-wider block">Przeczytane książki</span>
+      <span class="text-sm font-medium text-gray-500 uppercase tracking-wider block">Przeczytane książki i czasopisma</span>
       <span class="text-3xl font-extrabold text-indigo-600"><%= @liczba_ksiazek %></span>
     </div>
 
@@ -13,42 +13,106 @@
     </div>
   </div>
 
-  <div>
-    <%= link_to "Dodaj nową książkę", new_ksiazka_path, class: "inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-medium px-4 py-2.5 rounded-lg shadow-sm transition" %>
+  <div class="flex items-center gap-3">
+    <%= link_to "Dodaj nową książkę", new_ksiazka_path, class: "inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-medium px-4 py-2.5 rounded-lg shadow-sm transition-colors" %>
+    <%= link_to "Dodaj nowe czasopismo", new_czasopismo_path, class: "inline-block bg-rose-600 hover:bg-emerald-700 text-white font-medium px-4 py-2.5 rounded-lg shadow-sm transition-colors" %>
   </div>
 
-  <br><br>
+  <!-- Książki -->
+  <div class="mt-10 bg-white rounded-xl border border-slate-200/80 shadow-sm overflow-hidden">
+    <div class="px-6 py-4 border-b border-slate-200 flex items-center justify-between bg-slate-50/50">
+      <h2 class="text-xl font-bold text-slate-800">Przeczytane książki</h2>
+      <span class="text-xs font-semibold px-2.5 py-1 bg-indigo-100 text-indigo-800 rounded-full">
+        Łącznie: <%= @ksiazkas.count %>
+      </span>
+    </div>
 
-  <div class="bg-white shadow-sm rounded-xl border border-gray-200 overflow-hidden">
-    <table class="min-w-full divide-y divide-gray-200 text-left">
-      <thead class="bg-gray-50">
-        <tr>
-          <th class="px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Tytuł</th>
-          <th class="px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Autor</th>
-          <th class="px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Seria</th>
-          <th class="px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Format</th>
-          <th class="px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Ocena</th>
-          <th class="px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Gatunki</th>
-          <th class="px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Strony</th>
-          <th class="px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Akcje</th>
-        </tr>
-      </thead>
-      <tbody class="divide-y divide-gray-200">
-        <% @ksiazkas.each do |ksiazka| %>
-          <tr class="hover:bg-gray-50 transition">
-            <td class="px-6 py-4 font-semibold text-gray-900"><%= ksiazka.tytul %></td>
-            <td class="px-6 py-4 text-gray-600 capitalize"><%= ksiazka.autor %></td>
-            <td class="px-6 py-4 text-gray-600"><%= ksiazka.nazwa_serii %></td>
-            <td class="px-6 py-4 text-gray-600"><%= ksiazka.format_ksiazki %></td>
-            <td class="px-6 py-4 text-gray-600"><%= ksiazka.ocena %></td>
-            <td class="px-6 py-4 text-gray-600"><%= ksiazka.gatuneks.map(&:nazwa).join(", ") %></td>
-            <td class="px-6 py-4 text-gray-600"><%= ksiazka.strony %></td>
-            <td class="px-6 py-4">
-              <%= link_to "Pokaż", ksiazka_path(ksiazka), class: "text-indigo-600 hover:text-indigo-900 font-medium" %>
-            </td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
+    <% if @ksiazkas.any? %>
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse text-sm">
+          <thead>
+            <tr class="border-b border-slate-200 text-slate-500 bg-slate-50/30">
+              <th class="py-3 px-6 font-semibold">Tytuł</th>
+              <th class="py-3 px-6 font-semibold">Autor</th>
+              <th class="py-3 px-6 font-semibold">Seria</th>
+              <th class="py-3 px-6 font-semibold">Format</th>
+              <th class="py-3 px-6 font-semibold">Ocena</th>
+              <th class="py-3 px-6 font-semibold">Gatunki</th>
+              <th class="py-3 px-6 font-semibold">Strony</th>
+              <th class="py-3 px-6 font-semibold text-right">Akcje</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100">
+            <% @ksiazkas.each do |ksiazka| %>
+              <tr class="hover:bg-slate-50/80 transition-colors">
+                <td class="py-3.5 px-6 font-medium text-slate-900">
+                  <%= link_to ksiazka.tytul, ksiazka_path(ksiazka), class: "hover:text-indigo-600 transition-colors" %>
+                </td>
+                <td class="py-3.5 px-6 text-slate-600 capitalize"><%= ksiazka.autor %></td>
+                <td class="py-3.5 px-6 text-slate-600"><%= ksiazka.nazwa_serii %></td>
+                <td class="py-3.5 px-6 text-slate-600"><%= ksiazka.format_ksiazki %></td>
+                <td class="py-3.5 px-6 text-slate-600"><%= ksiazka.ocena %></td>
+                <td class="py-3.5 px-6 text-slate-600"><%= ksiazka.gatuneks.map(&:nazwa).join(", ") %></td>
+                <td class="py-3.5 px-6 text-slate-600"><%= ksiazka.strony %></td>
+                <td class="py-3.5 px-6 text-right space-x-2">
+                  <%= link_to "Pokaż", ksiazka_path(ksiazka), class: "text-indigo-600 hover:text-indigo-900 font-medium text-xs" %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    <% else %>
+      <div class="p-8 text-center text-slate-500">
+        Brak przeczytanych książek na liście.
+      </div>
+    <% end %>
+  </div>
+
+  <!-- Czasopisma -->
+  <div class="mt-10 bg-white rounded-xl border border-slate-200/80 shadow-sm overflow-hidden">
+    <div class="px-6 py-4 border-b border-slate-200 flex items-center justify-between bg-slate-50/50">
+      <h2 class="text-xl font-bold text-slate-800">Przeczytane czasopisma</h2>
+      <span class="text-xs font-semibold px-2.5 py-1 bg-rose-100 text-emerald-800 rounded-full">
+        Łącznie: <%= @czasopismos.count %>
+      </span>
+    </div>
+
+    <% if @czasopismos.any? %>
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse text-sm">
+          <thead>
+            <tr class="border-b border-slate-200 text-slate-500 bg-slate-50/30">
+              <th class="py-3 px-6 font-semibold">Tytuł</th>
+              <th class="py-3 px-6 font-semibold">Numer wydania</th>
+              <th class="py-3 px-6 font-semibold">Strony</th>
+              <th class="py-3 px-6 font-semibold">Przeczytano w</th>
+              <th class="py-3 px-6 font-semibold text-right">Akcje</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100">
+            <% @czasopismos.each do |czasopismo| %>
+              <tr class="hover:bg-slate-50/80 transition-colors">
+                <td class="py-3.5 px-6 font-medium text-slate-900">
+                  <%= link_to czasopismo.tytul, czasopismo_path(czasopismo), class: "hover:text-indigo-600 transition-colors" %>
+                </td>
+                <td class="py-3.5 px-6 text-slate-600"><%= czasopismo.numer_wydania %></td>
+                <td class="py-3.5 px-6 text-slate-600"><%= czasopismo.strony %></td>
+                <td class="py-3.5 px-6 text-slate-600">
+                  <%= czasopismo.zamien_miesiac_na_slowo %> <%= czasopismo.przeczytano_w&.year %>
+                </td>
+                <td class="py-3.5 px-6 text-right space-x-2">
+                  <%= link_to "Pokaż", czasopismo_path(czasopismo), class: "text-indigo-600 hover:text-indigo-900 font-medium text-xs" %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    <% else %>
+      <div class="p-8 text-center text-slate-500">
+        Brak przeczytanych czasopism na liście.
+      </div>
+    <% end %>
   </div>
 </div>

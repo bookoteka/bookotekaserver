@@ -63,7 +63,7 @@
       <%= f.label :format_ksiazki, "Format książki:" %><br>
       <div class="relative">
         <%= f.select :format_ksiazki, 
-            ["Papierowa", "E-book", "Audiobook"], 
+            ["Papierowa", "E-book", "Audiobook", "Synchrobook"], 
             { include_blank: "Wybierz format" }, 
             { required: true, class: "w-full appearance-none rounded-lg border border-slate-300 px-3 py-2 pr-8 text-slate-900 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 cursor-pointer text-sm" } %>
 
@@ -90,7 +90,7 @@
     <div class="pt-4 flex flex-col sm:flex-row items-center gap-3">
       <%= f.submit "Zapisz zmiany", class: "w-full sm:w-auto px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-lg shadow-sm transition-colors cursor-pointer text-center" %>
       
-      <%= link_to "Anuluj", ksiazka_path(@ksiazka), class: "w-full sm:w-auto px-6 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium rounded-lg transition-colors text-center" %>
+      <%= link_to "Anuluj", root_path, class: "w-full sm:w-auto px-6 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium rounded-lg transition-colors text-center" %>
     </div>
   <% end %>
 </div>
