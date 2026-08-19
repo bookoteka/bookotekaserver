@@ -13,7 +13,7 @@ class CzasopismosController < ApplicationController
     @czasopismo.przeczytano_w = Date.today
 
     if @czasopismo.save
-      redirect_to ksiazkas_path, notice: "Czasopismo zostało pomyślnie dodane!"
+      redirect_to root_path, notice: "Czasopismo zostało pomyślnie dodane!"
     else
       render :new, status: :unprocessable_entity
     end

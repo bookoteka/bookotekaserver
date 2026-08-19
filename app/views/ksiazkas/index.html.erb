@@ -13,6 +13,35 @@
     </div>
   </div>
 
+  <!-- Wykresy -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-6">
+    <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
+      <h3 class="text-base font-semibold text-slate-800 mb-3 text-center">
+        Podział według formatów
+      </h3>
+
+      <%= pie_chart Ksiazka.group(:format_ksiazki).count, 
+                    donut: true, 
+                    height: "220px",
+                    colors: ["#6366f1", "#8b5cf6", "#e11d48", "#0ea5e9"],
+                    legend: "bottom",
+                    empty: "Brak zdefiniowanych formatów książek" %>
+    </div>
+
+    <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
+      <h3 class="text-base font-semibold text-slate-800 mb-3 text-center">
+        Rozkład ocen książek
+      </h3>
+
+      <%= column_chart Ksiazka.group(:ocena).count,
+                      height: "220px",
+                      colors: ["#8b5cf6"],
+                      xtitle: "Ocena",
+                      ytitle: "Liczba książek",
+                      empty: "Brak ocenionych książek" %>
+    </div>
+  </div>
+
   <div class="flex items-center gap-3">
     <%= link_to "Dodaj nową książkę", new_ksiazka_path, class: "inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-medium px-4 py-2.5 rounded-lg shadow-sm transition-colors" %>
     <%= link_to "Dodaj nowe czasopismo", new_czasopismo_path, class: "inline-block bg-rose-600 hover:bg-rose-700 text-white font-medium px-4 py-2.5 rounded-lg shadow-sm transition-colors" %>
