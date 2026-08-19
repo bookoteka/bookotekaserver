@@ -15,7 +15,7 @@
 
     <div class="flex items-center gap-3">
       <!-- Przycisk pobierania -->
-      <%= link_to "/podsumowania/pobierz?nazwa=#{params[:id]}", class: "inline-flex items-center gap-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium px-4 py-2 rounded-lg transition-colors text-sm" do %>
+      <%= link_to "/podsumowania/pobierz?nazwa=#{ERB::Util.url_encode(params[:id])}", class: "inline-flex items-center gap-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium px-4 py-2 rounded-lg transition-colors text-sm" do %>
         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
         </svg>
@@ -23,7 +23,7 @@
       <% end %>
 
       <!-- Przycisk wysyłki e-mailem -->
-      <%= button_to "/podsumowania/wyslij_email?nazwa=#{params[:id]}", method: :post, class: "inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white font-medium px-4 py-2 rounded-lg shadow-sm transition-colors text-sm cursor-pointer" do %>
+      <%= button_to "/podsumowania/wyslij_email?nazwa=#{ERB::Util.url_encode(params[:id])}", method: :post, class: "inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white font-medium px-4 py-2 rounded-lg shadow-sm transition-colors text-sm cursor-pointer" do %>
         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
         </svg>
@@ -37,7 +37,7 @@
     <object data="<%= plik_podsumowanie_path(params[:id]) %>" type="application/pdf" class="w-full h-[800px] rounded-lg">
       <div class="p-8 text-center text-slate-600">
         <p class="mb-4">Twoja przeglądarka na tym urządzeniu nie obsługuje bezpośredniego podglądu PDF wewnątrz strony.</p>
-        <%= link_to "/podsumowania/pobierz?nazwa=#{params[:id]}", class: "inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white font-medium px-4 py-2 rounded-lg text-sm transition-colors" do %>
+        <%= link_to "/podsumowania/pobierz?nazwa=#{ERB::Util.url_encode(params[:id])}", class: "inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white font-medium px-4 py-2 rounded-lg text-sm transition-colors" do %>
           Otwórz / Pobierz plik PDF
         <% end %>
       </div>

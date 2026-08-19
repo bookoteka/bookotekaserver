@@ -1,0 +1,7 @@
+{
+  "name": "system-czytelniczy",
+  "private": true,
+  "dependencies": {
+    "puppeteer": "*"
+  }
+}

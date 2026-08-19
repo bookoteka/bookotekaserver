@@ -128,6 +128,8 @@ GEM
       activesupport (>= 6.1)
     groupdate (6.8.0)
       activesupport (>= 7.2)
+    grover (1.2.10)
+      nokogiri (~> 1)
     hotwire-livereload (2.1.1)
       actioncable (>= 7.0.0)
       listen (>= 3.0.0)
@@ -414,6 +416,7 @@ DEPENDENCIES
   chartkick
   debug
   groupdate
+  grover (~> 1.2)
   hotwire-livereload
   image_processing (~> 1.2)
   importmap-rails
@@ -481,6 +484,7 @@ CHECKSUMS
   fugit (1.13.0) sha256=a4f093fce740da52f216740a5041e2a594ea763cdb89e8b2754ca4399634ab18
   globalid (1.4.0) sha256=037f12fbf1d9d7a014d501c2d5c77356fd4ddd96d7a7991d6700bba96706f427
   groupdate (6.8.0) sha256=16f90ea18ca981c38e41e592416480b28353aa5e5cc3e7cb13a68b8fb5d40510
+  grover (1.2.10) sha256=989b21d1a0048e3793b9939b392152fb309c7a107911ad04c10e422de4e1479b
   hotwire-livereload (2.1.1) sha256=0c26a78c4d14f52e5cc52aba46b37d4a5ba12b571ddc5ed8842140aa332d5486
   i18n (1.15.2) sha256=00f9eb62412fe593b2a65a97daa75300d37abb8f7202ec748e94b6d46a9dd1b5
   image_processing (1.14.0) sha256=754cc169c9c262980889bec6bfd325ed1dafad34f85242b5a07b60af004742fb

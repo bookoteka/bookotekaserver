@@ -22,26 +22,24 @@ class PodsumowaniaController < ApplicationController
     if typ == "roczne"
       przygotuj_dane_roczne(rok)
       html_zawartosc = render_to_string(template: "podsumowania/szablony/rok", layout: false)
-      nazwa_pliku = "Podsumowanie #{rok}.pdf"
+      nazwa_pliku = "#{rok}.pdf"
     else
       przygotuj_dane_miesieczne(rok, miesiac)
       html_zawartosc = render_to_string(template: "podsumowania/szablony/miesiac", layout: false)
       nazwa_miesiaca = SLOWNIK_MIESIECY[miesiac]
-      nazwa_pliku = "Podsumowanie #{nazwa_miesiaca} #{rok}.pdf"
+      nazwa_pliku = "#{nazwa_miesiaca} #{rok}.pdf"
     end
 
-    FileUtils.mkdir_p(Rails.root.join("storage", "raporty"))
-    sciezka_zapisu = Rails.root.join("storage", "raporty", nazwa_pliku)
+    katalog_raportow = Rails.root.join("storage", "raporty")
+    FileUtils.mkdir_p(katalog_raportow)
+    sciezka_zapisu = katalog_raportow.join(nazwa_pliku)
 
-    zawartosc_pdf = WickedPdf.new.pdf_from_string(
-      html_zawartosc,
-      page_size: "A4",
-      margin: { top: 10, bottom: 10, left: 10, right: 10 },
-      enable_local_file_access: true
-    )
+    html_zawartosc = html_zawartosc.force_encoding("UTF-8")
+    zawartosc_pdf = Grover.new(html_zawartosc).to_pdf
+
     File.binwrite(sciezka_zapisu, zawartosc_pdf)
 
-    redirect_to podsumowania_path, notice: "Wygenerowano raport: #{nazwa_pliku}"
+    redirect_to podsumowanie_index_path, notice: "Wygenerowano raport: #{nazwa_pliku}"
   end
 
   def show

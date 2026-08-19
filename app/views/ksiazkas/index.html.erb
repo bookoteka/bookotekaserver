@@ -42,9 +42,19 @@
     </div>
   </div>
 
-  <div class="flex items-center gap-3">
-    <%= link_to "Dodaj nową książkę", new_ksiazka_path, class: "inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-medium px-4 py-2.5 rounded-lg shadow-sm transition-colors" %>
-    <%= link_to "Dodaj nowe czasopismo", new_czasopismo_path, class: "inline-block bg-rose-600 hover:bg-rose-700 text-white font-medium px-4 py-2.5 rounded-lg shadow-sm transition-colors" %>
+  <!-- Przyciski akcji -->
+  <div class="flex flex-wrap items-center justify-between gap-3">
+    <div class="flex flex-wrap items-center gap-3">
+      <%= link_to "Dodaj nową książkę", new_ksiazka_path, class: "inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-medium px-4 py-2.5 rounded-lg shadow-sm transition-colors text-sm" %>
+      <%= link_to "Dodaj nowe czasopismo", new_czasopismo_path, class: "inline-block bg-rose-600 hover:bg-rose-700 text-white font-medium px-4 py-2.5 rounded-lg shadow-sm transition-colors text-sm" %>
+    </div>
+
+    <%= link_to "/podsumowania", class: "inline-flex items-center gap-2 bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 font-medium px-4 py-2.5 rounded-lg shadow-sm transition-colors text-sm" do %>
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+      </svg>
+      Podsumowania i Raporty
+    <% end %>
   </div>
 
   <!-- Książki -->
