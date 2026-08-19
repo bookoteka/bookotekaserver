@@ -1,0 +1,150 @@
+<div class="w-[210mm] min-h-[297mm] mx-auto bg-white p-10 text-slate-800 font-sans print:p-0 print:w-full">
+  <!-- Nagłówek -->
+  <header class="border-b-2 border-slate-900 pb-4 mb-8 flex justify-between items-end">
+    <div>
+      <h1 class="text-3xl font-bold tracking-tight text-slate-900">Podsumowanie <%= @rok %></h1>
+      <p class="text-xs text-slate-500 mt-1">Roczny raport aktywności czytelniczej</p>
+    </div>
+    <div class="text-right text-xs text-slate-400">
+      System Czytelniczy
+    </div>
+  </header>
+
+  <!-- Kafelki ze statystykami -->
+  <section class="grid grid-cols-2 gap-6 mb-8">
+    <div class="bg-slate-50 border border-slate-200 rounded-xl p-5 text-center">
+      <span class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Przeczytane książki</span>
+      <span class="text-4xl font-extrabold text-indigo-600"><%= @lacznie_ksiazek %></span>
+    </div>
+    <div class="bg-slate-50 border border-slate-200 rounded-xl p-5 text-center">
+      <span class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Przeczytane strony</span>
+      <span class="text-4xl font-extrabold text-indigo-600"><%= @lacznie_stron %></span>
+    </div>
+  </section>
+
+  <!-- Sekcja wykresów z formatami oraz ocenami -->
+  <section class="grid grid-cols-2 gap-6 mb-8">
+    <div class="bg-slate-50 border border-slate-200 rounded-xl p-5">
+      <h3 class="text-xs font-semibold text-slate-600 uppercase tracking-wider mb-3 pb-2 border-b border-slate-200">Formaty</h3>
+      <div class="space-y-2">
+        <% @rozklad_formatow.each do |format, ilosc| %>
+          <div class="flex justify-between items-center text-sm">
+            <span class="text-slate-700"><%= format %></span>
+            <span class="font-bold text-slate-900"><%= ilosc %></span>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="bg-slate-50 border border-slate-200 rounded-xl p-5">
+      <h3 class="text-xs font-semibold text-slate-600 uppercase tracking-wider mb-3 pb-2 border-b border-slate-200">Oceny</h3>
+      <div class="space-y-2">
+        <% @rozklad_ocen.each do |ocena, ilosc| %>
+          <div class="flex justify-between items-center text-sm">
+            <span class="text-slate-700"><%= ocena %></span>
+            <span class="font-bold text-slate-900"><%= ilosc %></span>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tabelka z gatunkami -->
+  <section class="mb-8">
+    <h2 class="text-sm font-bold text-slate-900 uppercase tracking-wider mb-3">Popularność gatunków</h2>
+    <div class="border border-slate-200 rounded-xl overflow-hidden">
+      <table class="w-full text-left text-xs border-collapse">
+        <thead class="bg-slate-100 border-b border-slate-200 text-slate-700 uppercase">
+          <tr>
+            <th class="py-2.5 px-4 font-semibold">Gatunek</th>
+            <th class="py-2.5 px-4 font-semibold text-right">Liczba książek</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-slate-100">
+          <% @statystyki_gatunkow.each do |gatunek, ilosc| %>
+            <tr class="hover:bg-slate-50">
+              <td class="py-2 px-4 font-medium text-slate-800"><%= gatunek %></td>
+              <td class="py-2 px-4 text-right font-bold text-indigo-600"><%= ilosc %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Tabelka z książkami z kolumną Miesiąc -->
+  <section class="mb-8">
+    <h2 class="text-sm font-bold text-slate-900 uppercase tracking-wider mb-3">Lista przeczytanych książek</h2>
+    <div class="border border-slate-200 rounded-xl overflow-hidden">
+      <table class="w-full text-left text-xs border-collapse">
+        <thead class="bg-slate-100 border-b border-slate-200 text-slate-700 uppercase">
+          <tr>
+            <th class="py-2.5 px-3 font-semibold text-center w-10">Lp.</th>
+            <th class="py-2.5 px-3 font-semibold">Tytuł</th>
+            <th class="py-2.5 px-3 font-semibold">Autor</th>
+            <th class="py-2.5 px-3 font-semibold">Seria</th>
+            <th class="py-2.5 px-3 font-semibold">Format</th>
+            <th class="py-2.5 px-3 font-semibold text-center">Ocena</th>
+            <th class="py-2.5 px-3 font-semibold">Gatunki</th>
+            <th class="py-2.5 px-3 font-semibold text-center">Miesiąc</th>
+            <th class="py-2.5 px-3 font-semibold text-right">Strony</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-slate-100">
+          <% @ksiazki.each_with_index do |ksiazka, indeks| %>
+            <tr class="hover:bg-slate-50">
+              <td class="py-2 px-3 text-center text-slate-400 font-medium"><%= indeks + 1 %></td>
+              <td class="py-2 px-3 font-semibold text-slate-900"><%= ksiazka[:tytul] %></td>
+              <td class="py-2 px-3 text-slate-700"><%= ksiazka[:autor] %></td>
+              <td class="py-2 px-3 text-slate-500"><%= ksiazka[:seria] || "-" %></td>
+              <td class="py-2 px-3 text-slate-600"><%= ksiazka[:format] %></td>
+              <td class="py-2 px-3 text-center font-bold text-slate-800">
+                <%= ksiazka[:ocena].to_s[0..2] %>
+              </td>
+              <td class="py-2 px-3 text-slate-600">
+                <%= ksiazka[:gatunki].join(", ") %>
+              </td>
+              <td class="py-2 px-3 text-center text-slate-600 font-medium"><%= ksiazka[:miesiac] %></td>
+              <td class="py-2 px-3 text-right font-medium text-slate-900"><%= ksiazka[:strony] %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Tabelka z czasopismami z kolumną Miesiąc -->
+  <section class="mb-8">
+    <h2 class="text-sm font-bold text-slate-900 uppercase tracking-wider mb-3">Przeczytane czasopisma</h2>
+    <div class="border border-slate-200 rounded-xl overflow-hidden">
+      <table class="w-full text-left text-xs border-collapse">
+        <thead class="bg-slate-100 border-b border-slate-200 text-slate-700 uppercase">
+          <tr>
+            <th class="py-2.5 px-3 font-semibold text-center w-10">Lp.</th>
+            <th class="py-2.5 px-3 font-semibold">Nazwa</th>
+            <th class="py-2.5 px-3 font-semibold">Numer</th>
+            <th class="py-2.5 px-3 font-semibold text-center">Miesiąc</th>
+            <th class="py-2.5 px-3 font-semibold text-right">Strony</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-slate-100">
+          <% if @czasopisma.present? %>
+            <% @czasopisma.each_with_index do |czasopismo, indeks| %>
+              <tr class="hover:bg-slate-50">
+                <td class="py-2 px-3 text-center text-slate-400 font-medium"><%= indeks + 1 %></td>
+                <td class="py-2 px-3 font-semibold text-slate-900"><%= czasopismo[:nazwa] %></td>
+                <td class="py-2 px-3 text-slate-700"><%= czasopismo[:numer] %></td>
+                <td class="py-2 px-3 text-center text-slate-600 font-medium"><%= czasopismo[:miesiac] %></td>
+                <td class="py-2 px-3 text-right font-medium text-slate-900"><%= czasopismo[:strony] %></td>
+              </tr>
+            <% end %>
+          <% else %>
+            <tr>
+              <td colspan="5" class="py-4 text-center text-slate-400">Brak przeczytanych czasopism w tym roku.</td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>

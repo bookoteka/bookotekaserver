@@ -23,6 +23,9 @@
 
 # Ignore storage (uploaded files in development and any SQLite databases).
 /storage/*
+!/storage/raporty/
+!/storage/raporty/.keep
+/storage/raporty/*.pdf
 !/storage/.keep
 /tmp/storage/*
 !/tmp/storage/
