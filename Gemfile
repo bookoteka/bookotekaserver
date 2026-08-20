@@ -72,3 +72,5 @@ group :test do
 end
 
 gem "grover", "~> 1.2"
+
+gem "dotenv-rails", "~> 3.2"

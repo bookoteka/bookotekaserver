@@ -73,6 +73,27 @@ class PodsumowaniaController < ApplicationController
     end
   end
 
+  def wyslij_email
+    nazwa_pliku = "#{params[:nazwa]}.pdf"
+    sciezka_do_pliku = Rails.root.join('storage', 'raporty', nazwa_pliku)
+
+    if File.exist?(sciezka_do_pliku)
+      dane_pliku = File.read(sciezka_do_pliku)
+      odbiorca = ENV['KACPER_EMAIL']
+
+      RaportyMailer.wyslij_maila(
+        odbiorca,
+        "miesięczne",
+        nazwa_pliku,
+        dane_pliku
+      ).deliver_now
+
+      redirect_to podsumowanie_path(params[:nazwa]), notice: "E-mail z raportem został wysłany!"
+    else
+      redirect_to podsumowanie_path(params[:nazwa]), alert: "Nie znaleziono pliku raportu do wysyłki."
+    end
+  end
+
   private
 
   def przygotuj_dane_miesieczne(rok, miesiac)
