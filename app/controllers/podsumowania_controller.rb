@@ -94,6 +94,18 @@ class PodsumowaniaController < ApplicationController
     end
   end
 
+  def usun
+    nazwa_pliku = "#{params[:nazwa]}.pdf"
+    sciezka = Rails.root.join("storage", "raporty", nazwa_pliku)
+
+    if File.exist?(sciezka)
+      File.delete(sciezka)
+      redirect_to podsumowanie_index_path, notice: "Plik #{nazwa_pliku} został pomyślnie usunięty."
+    else
+      redirect_to podsumowanie_index_path, alert: "Nie znaleziono pliku do usunięcia."
+    end
+  end
+
   private
 
   def przygotuj_dane_miesieczne(rok, miesiac)

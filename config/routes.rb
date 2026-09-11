@@ -17,6 +17,7 @@ Rails.application.routes.draw do
     collection do
       get :pobierz
       post :wyslij_email
+      delete :usun
     end
   end
 
