@@ -1,0 +1,86 @@
+<div class="p-8 max-w-5xl mx-auto" data-controller="zakladki">
+  <div class="flex items-center justify-between mb-6">
+    <h1 class="text-4xl font-bold text-indigo-900 mb-8">Ustawienia</h1>
+    <%= link_to root_path, class: "inline-flex items-center gap-2 px-4 py-2.5 text-sm font-medium text-slate-700 bg-white border border-slate-200 rounded-lg shadow-sm hover:bg-slate-50 transition-colors" do %>
+      ← Strona główna
+    <% end %>
+  </div>
+
+  <div class="grid grid-cols-4 gap-8">
+    <!-- LEWE MENU -->
+    <aside class="col-span-1 flex flex-col space-y-2">
+      <button 
+        type="button"
+        data-zakladki-target="tab"
+        data-zakladka-nazwa="import"
+        data-action="click->zakladki#przelacz"
+        class="text-left px-4 py-2 rounded-lg text-lg font-medium transition-colors bg-indigo-600 text-white"
+      >
+        Import danych
+      </button>
+
+      <button 
+        type="button"
+        data-zakladki-target="tab"
+        data-zakladka-nazwa="eksport"
+        data-action="click->zakladki#przelacz"
+        class="text-left px-4 py-2 rounded-lg text-lg font-medium transition-colors text-slate-700 hover:bg-slate-100"
+      >
+        Eksport danych
+      </button>
+
+      <button 
+        type="button"
+        data-zakladki-target="tab"
+        data-zakladka-nazwa="wyglad"
+        data-action="click->zakladki#przelacz"
+        class="text-left px-4 py-2 rounded-lg text-lg font-medium transition-colors text-slate-700 hover:bg-slate-100"
+      >
+        Wygląd
+      </button>
+
+      <button 
+        type="button"
+        data-zakladki-target="tab"
+        data-zakladka-nazwa="gatunki"
+        data-action="click->zakladki#przelacz"
+        class="text-left px-4 py-2 rounded-lg text-lg font-medium transition-colors text-slate-700 hover:bg-slate-100"
+      >
+        Gatunki
+      </button>
+
+      <button 
+        type="button"
+        data-zakladki-target="tab"
+        data-zakladka-nazwa="o-aplikacji"
+        data-action="click->zakladki#przelacz"
+        class="text-left px-4 py-2 rounded-lg text-lg font-medium transition-colors text-slate-700 hover:bg-slate-100"
+      >
+        O aplikacji
+      </button>
+    </aside>
+
+    <!-- TREŚĆ ZAKŁADEK -->
+    <main class="col-span-3 bg-white p-6 rounded-2xl shadow-sm border border-slate-100 min-h-[300px]">
+      <div data-zakladki-target="panel" data-zakladka-wybor="import">
+        <%= render "import" %>
+      </div>
+
+      <div data-zakladki-target="panel" data-zakladka-wybor="eksport" class="hidden">
+        <%= render "eksport" %>
+      </div>
+
+      <div data-zakladki-target="panel" data-zakladka-wybor="wyglad" class="hidden">
+        <%= render "wyglad" %>
+      </div>
+
+      <div data-zakladki-target="panel" data-zakladka-wybor="gatunki" class="hidden">
+        <%= render "gatunki" %>
+      </div>
+
+      <div data-zakladki-target="panel" data-zakladka-wybor="o-aplikacji" class="hidden">
+        <%= render "o_aplikacji" %>
+      </div>
+    </main>
+  </div>
+</div>

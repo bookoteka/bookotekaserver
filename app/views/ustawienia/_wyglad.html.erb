@@ -1,0 +1,40 @@
+<div class="space-y-6">
+  <div>
+    <h1 class="text-4xl font-bold text-indigo-900">Wygląd</h1>
+    <p class="text-sm text-slate-500 mt-1">
+      Dostosuj kolor przewodni aplikacji.
+    </p>
+  </div>
+
+  <div class="space-y-3">
+    <h3 class="font-semibold text-slate-800">Kolor akcentu</h3>
+    <div class="grid grid-cols-4 sm:grid-cols-7 gap-3">
+      <% 
+        dostępne_kolory = [
+          { id: 'indigo', nazwa: 'Indigo', kod_hex: '#4f46e5' },
+          { id: 'blue', nazwa: 'Niebieski', kod_hex: '#2563eb' },
+          { id: 'emerald', nazwa: 'Szmaragdowy', kod_hex: '#059669' },
+          { id: 'rose', nazwa: 'Różany', kod_hex: '#e11d48' },
+          { id: 'amber', nazwa: 'Bursztynowy', kod_hex: '#d97706' },
+          { id: 'purple', nazwa: 'Fioletowy', kod_hex: '#7c3aed' }
+        ]
+      %>
+
+      <% dostępne_kolory.each do |kolor| %>
+        <button
+          type="button"
+          title="<%= kolor[:nazwa] %>"
+          class="group relative flex flex-col items-center justify-center p-3 rounded-2xl border border-slate-200 hover:border-slate-300 bg-white hover:bg-slate-50 transition-all active:scale-95"
+        >
+          <div
+            class="w-10 h-10 rounded-xl shadow-sm transition-transform group-hover:scale-105 flex items-center justify-center"
+            style="background-color: <%= kolor[:kod_hex] %>;"
+          ></div>
+          <span class="text-xs font-medium text-slate-600 mt-2">
+            <%= kolor[:nazwa] %>
+          </span>
+        </button>
+      <% end %>
+    </div>
+  </div>
+</div>

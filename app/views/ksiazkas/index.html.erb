@@ -1,9 +1,32 @@
 <div style="padding: 1rem;">
-  <h1 class="text-5xl font-bold text-indigo-900 mb-6">System Czytelniczy - Kacper</h1>
+  <div class="flex items-center justify-between mb-6">
+    <h1 class="text-5xl font-bold text-indigo-900">bookoteka</h1>
+    <%= link_to ustawienia_path, class: "p-2 text-primary-900 hover:text-primary-600 hover:bg-primary-50 rounded-full transition-colors" do %>
+      <svg 
+        xmlns="http://www.w3.org/2000/svg" 
+        fill="none" 
+        viewBox="0 0 24 24" 
+        stroke-width="1.75" 
+        stroke="currentColor" 
+        class="w-8 h-8"
+      >
+        <path 
+          stroke-linecap="round" 
+          stroke-linejoin="round" 
+          d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.991a6.932 6.932 0 010-.255c.007-.38-.138-.751-.43-.992l-1.004-.827a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.28z" 
+        />
+        <path 
+          stroke-linecap="round" 
+          stroke-linejoin="round" 
+          d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" 
+        />
+      </svg>
+    <% end %>
+  </div>
 
   <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
     <div class="bg-white p-5 rounded-xl border border-gray-200 shadow-sm">
-      <span class="text-sm font-medium text-gray-500 uppercase tracking-wider block">Przeczytane książki i czasopisma</span>
+      <span class="text-sm font-medium text-gray-500 uppercase tracking-wider block">Przeczytane książki</span>
       <span class="text-3xl font-extrabold text-indigo-600"><%= @liczba_ksiazek %></span>
     </div>
 
@@ -46,7 +69,6 @@
   <div class="flex flex-wrap items-center justify-between gap-3">
     <div class="flex flex-wrap items-center gap-3">
       <%= link_to "Dodaj nową książkę", new_ksiazka_path, class: "inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-medium px-4 py-2.5 rounded-lg shadow-sm transition-colors text-sm" %>
-      <%= link_to "Dodaj nowe czasopismo", new_czasopismo_path, class: "inline-block bg-rose-600 hover:bg-rose-700 text-white font-medium px-4 py-2.5 rounded-lg shadow-sm transition-colors text-sm" %>
     </div>
 
     <%= link_to "/podsumowania", class: "inline-flex items-center gap-2 bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 font-medium px-4 py-2.5 rounded-lg shadow-sm transition-colors text-sm" do %>
@@ -104,53 +126,6 @@
     <% else %>
       <div class="p-8 text-center text-slate-500">
         Brak przeczytanych książek na liście.
-      </div>
-    <% end %>
-  </div>
-
-  <!-- Czasopisma -->
-  <div class="mt-10 bg-white rounded-xl border border-slate-200/80 shadow-sm overflow-hidden">
-    <div class="px-6 py-4 border-b border-slate-200 flex items-center justify-between bg-slate-50/50">
-      <h2 class="text-xl font-bold text-slate-800">Przeczytane czasopisma</h2>
-      <span class="text-xs font-semibold px-2.5 py-1 bg-rose-100 text-emerald-800 rounded-full">
-        Łącznie: <%= @czasopismos.count %>
-      </span>
-    </div>
-
-    <% if @czasopismos.any? %>
-      <div class="overflow-x-auto">
-        <table class="w-full text-left border-collapse text-sm">
-          <thead>
-            <tr class="border-b border-slate-200 text-slate-500 bg-slate-50/30">
-              <th class="py-3 px-6 font-semibold">Tytuł</th>
-              <th class="py-3 px-6 font-semibold">Numer wydania</th>
-              <th class="py-3 px-6 font-semibold">Strony</th>
-              <th class="py-3 px-6 font-semibold">Przeczytano w</th>
-              <th class="py-3 px-6 font-semibold text-right">Akcje</th>
-            </tr>
-          </thead>
-          <tbody class="divide-y divide-slate-100">
-            <% @czasopismos.each do |czasopismo| %>
-              <tr class="hover:bg-slate-50/80 transition-colors">
-                <td class="py-3.5 px-6 font-medium text-slate-900">
-                  <%= link_to czasopismo.tytul, czasopismo_path(czasopismo), class: "hover:text-indigo-600 transition-colors" %>
-                </td>
-                <td class="py-3.5 px-6 text-slate-600"><%= czasopismo.numer_wydania %></td>
-                <td class="py-3.5 px-6 text-slate-600"><%= czasopismo.strony %></td>
-                <td class="py-3.5 px-6 text-slate-600">
-                  <%= czasopismo.zamien_miesiac_na_slowo %> <%= czasopismo.przeczytano_w&.year %>
-                </td>
-                <td class="py-3.5 px-6 text-right space-x-2">
-                  <%= link_to "Pokaż", czasopismo_path(czasopismo), class: "text-indigo-600 hover:text-indigo-900 font-medium text-xs" %>
-                </td>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
-      </div>
-    <% else %>
-      <div class="p-8 text-center text-slate-500">
-        Brak przeczytanych czasopism na liście.
       </div>
     <% end %>
   </div>

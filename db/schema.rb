@@ -11,15 +11,6 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[8.1].define(version: 2026_08_18_133248) do
-  create_table "czasopismos", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.string "numer_wydania"
-    t.date "przeczytano_w"
-    t.integer "strony"
-    t.string "tytul"
-    t.datetime "updated_at", null: false
-  end
-
   create_table "gatuneks", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "nazwa"

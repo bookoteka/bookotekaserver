@@ -22,4 +22,7 @@ Rails.application.routes.draw do
   end
 
   get "up" => "rails/health#show"
+
+  get "ustawienia", to: "ustawienia#index", as: :ustawienia
+  get "ustawienia/eksport", to: "ustawienia#eksport", as: :eksport_ustawienia
 end

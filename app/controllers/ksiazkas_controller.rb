@@ -3,10 +3,9 @@ class KsiazkasController < ApplicationController
 
   def index
     @ksiazkas = Ksiazka.all
-    @czasopismos = Czasopismo.all
 
-    @suma_stron = @ksiazkas.sum(:strony) + @czasopismos.sum(:strony)
-    @liczba_ksiazek = @ksiazkas.count + @czasopismos.count
+    @suma_stron = @ksiazkas.sum(:strony)
+    @liczba_ksiazek = @ksiazkas.count
   end
 
   def show
