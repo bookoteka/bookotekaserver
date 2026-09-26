@@ -14,7 +14,7 @@
         Strona główna
       <% end %>
 
-      <button onclick="otworzModal()" class="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white font-medium px-4 py-2.5 rounded-lg shadow-sm transition-colors text-sm cursor-pointer">
+      <button onclick="otworzModal()" class="inline-flex items-center gap-2 bg-primary-600 hover:bg-primary-700 text-white font-medium px-4 py-2.5 rounded-lg shadow-sm transition-colors text-sm cursor-pointer">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
         </svg>
@@ -50,7 +50,7 @@
             </div>
 
             <div class="flex items-center gap-3">
-              <%= link_to "/podsumowania/#{id_pliku}", class: "text-indigo-600 hover:text-indigo-800 font-medium text-sm transition-colors" do %>
+              <%= link_to "/podsumowania/#{id_pliku}", class: "text-primary-600 hover:text-primary-800 font-medium text-sm transition-colors" do %>
                 Otwórz podgląd &rarr;
               <% end %>
             </div>
@@ -83,7 +83,7 @@
     <%= form_with url: "/podsumowania", method: :post, local: true, class: "space-y-4" do |f| %>
       <div>
         <label class="block text-xs font-semibold text-slate-600 uppercase tracking-wider mb-2">Typ raportu</label>
-        <select name="typ" id="wybor-typu" onchange="przelaczTyp()" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+        <select name="typ" id="wybor-typu" onchange="przelaczTyp()" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-primary-500">
           <option value="miesieczne">Miesięczne</option>
           <option value="roczne">Roczne</option>
         </select>
@@ -91,7 +91,7 @@
 
       <div id="kontener-miesiac">
         <label class="block text-xs font-semibold text-slate-600 uppercase tracking-wider mb-2">Miesiąc</label>
-        <select name="miesiac" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+        <select name="miesiac" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-primary-500">
           <% [["Styczeń", 1], ["Luty", 2], ["Marzec", 3], ["Kwiecień", 4], ["Maj", 5], ["Czerwiec", 6], ["Lipiec", 7], ["Sierpień", 8], ["Wrzesień", 9], ["Październik", 10], ["Listopad", 11], ["Grudzień", 12]].each do |nazwa, nr| %>
             <option value="<%= nr %>" <%= "selected" if nr == Date.today.month %>><%= nazwa %></option>
           <% end %>
@@ -100,7 +100,7 @@
 
       <div>
         <label class="block text-xs font-semibold text-slate-600 uppercase tracking-wider mb-2">Rok</label>
-        <select name="rok" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+        <select name="rok" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-primary-500">
           <% (2024..Date.today.year).reverse_each do |r| %>
             <option value="<%= r %>"><%= r %></option>
           <% end %>

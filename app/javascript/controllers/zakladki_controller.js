@@ -8,7 +8,7 @@ export default class extends Controller {
 
     this.panelTargets.forEach(panel => panel.classList.add("hidden"))
     this.tabTargets.forEach(tab => {
-      tab.classList.remove("bg-indigo-600", "text-white")
+      tab.classList.remove("bg-primary-600", "text-white")
       tab.classList.add("text-slate-700", "hover:bg-slate-100")
     })
 
@@ -18,6 +18,6 @@ export default class extends Controller {
     }
 
     zdarzenie.currentTarget.classList.remove("text-slate-700", "hover:bg-slate-100")
-    zdarzenie.currentTarget.classList.add("bg-indigo-600", "text-white")
+    zdarzenie.currentTarget.classList.add("bg-primary-600", "text-white")
   }
 }

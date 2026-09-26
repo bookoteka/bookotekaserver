@@ -24,6 +24,43 @@
 
     <% #Tailwind %>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      (function() {
+        const domyslnaPaleta = {
+          50: '#eep2ff', 100: '#e0e7ff', 200: '#c7d2fe', 300: '#a5b4fc', 400: '#818cf8',
+          500: '#6366f1', 600: '#4f46e5', 700: '#4338ca', 800: '#3730a3', 900: '#312e81', 950: '#1e1b4b'
+        };
+
+        const zapisana = localStorage.getItem("motyw_paleta");
+        const paleta = zapisana ? JSON.parse(zapisana) : domyslnaPaleta;
+
+        Object.keys(paleta).forEach(stopien => {
+          document.documentElement.style.setProperty(`--p-${stopien}`, paleta[stopien]);
+        });
+      })();
+
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: {
+                50:  'var(--p-50)',
+                100: 'var(--p-100)',
+                200: 'var(--p-200)',
+                300: 'var(--p-300)',
+                400: 'var(--p-400)',
+                500: 'var(--p-500)',
+                600: 'var(--p-600)',
+                700: 'var(--p-700)',
+                800: 'var(--p-800)',
+                900: 'var(--p-900)',
+                950: 'var(--p-950)',
+              }
+            }
+          }
+        }
+      }
+    </script>
   </head>
 
   <body>

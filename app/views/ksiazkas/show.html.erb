@@ -1,6 +1,6 @@
 <div class="max-w-3xl mx-auto bg-white p-6 sm:p-8 rounded-xl border border-slate-200/80 shadow-sm">
   <div class="border-b border-slate-200 pb-5 mb-6">
-    <h1 class="text-3xl sm:text-4xl font-bold text-indigo-900 mb-2"><%= @ksiazka.tytul %></h1>
+    <h1 class="text-3xl sm:text-4xl font-bold text-primary-900 mb-2"><%= @ksiazka.tytul %></h1>
     <p class="text-lg font-medium text-slate-600 capitalize">
       Autor: <span class="text-slate-900 font-semibold"><%= @ksiazka.autor.presence || "Brak danych" %></span>
     </p>
@@ -45,7 +45,7 @@
     <div class="flex flex-wrap gap-2">
       <% if @ksiazka.gatuneks.any? %>
         <% @ksiazka.gatuneks.each do |gatunek| %>
-          <span class="px-3 py-1.5 rounded-lg border border-indigo-200 bg-indigo-50 text-indigo-900 text-sm font-medium">
+          <span class="px-3 py-1.5 rounded-lg border border-primary-200 bg-primary-50 text-primary-900 text-sm font-medium">
             <%= gatunek.nazwa %>
           </span>
         <% end %>
@@ -59,7 +59,7 @@
 
   <div class="flex flex-wrap items-center justify-between gap-3">
     <div class="flex items-center gap-3">
-      <%= link_to "Edytuj", edit_ksiazka_path(@ksiazka), class: "px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-lg shadow-sm transition-colors text-sm" %>
+      <%= link_to "Edytuj", edit_ksiazka_path(@ksiazka), class: "px-5 py-2.5 bg-primary-600 hover:bg-primary-700 text-white font-medium rounded-lg shadow-sm transition-colors text-sm" %>
       
       <%= link_to "Usuń", ksiazka_path(@ksiazka), data: { turbo_method: :delete, turbo_confirm: "Czy na pewno chcesz usunąć tę książkę?" }, class: "px-5 py-2.5 bg-red-50 hover:bg-red-100 text-red-600 font-medium rounded-lg border border-red-200 transition-colors text-sm" %>
     </div>
