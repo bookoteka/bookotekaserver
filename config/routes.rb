@@ -25,4 +25,6 @@ Rails.application.routes.draw do
 
   get "ustawienia", to: "ustawienia#index", as: :ustawienia
   get "ustawienia/eksport", to: "ustawienia#eksport", as: :eksport_ustawienia
+
+  post "import_bazy", to: "bazy_imports#create", as: :import_bazy
 end

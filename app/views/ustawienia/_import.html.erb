@@ -2,7 +2,7 @@
   <div>
     <h1 class="text-4xl font-bold text-primary-900">Import danych</h1>
     <p class="text-sm text-slate-500 mt-1">
-      Wczytaj zewnętrzną kopię zapasową bazy danych SQLite (.db).
+      Wczytaj zewnętrzną kopię zapasową bazy danych SQLite (.sqlite3 / .db).
     </p>
   </div>
 
@@ -21,9 +21,23 @@
       </div>
     </div>
 
-    <%= form_with url: "#", method: :post, multipart: true, class: "flex items-center gap-3" do |f| %>
-      <%= f.file_field :baza_plik, accept: ".db", class: "block w-full text-sm text-slate-500 file:mr-4 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-primary-50 file:text-primary-700 hover:file:bg-primary-100 cursor-pointer" %>
-      <%= f.submit "Zaimportuj", class: "px-5 py-2.5 bg-primary-600 hover:bg-primary-700 text-white font-medium rounded-xl transition-colors shadow-sm cursor-pointer" %>
+    <%= form_with url: import_bazy_path, 
+                  method: :post, 
+                  multipart: true, 
+                  id: "formularz-importu-bazy",
+                  class: "flex items-center gap-3", 
+                  data: { turbo: false },
+                  html: { autocomplete: "off", novalidate: true } do |f| %>
+      <%= f.file_field :baza_plik, 
+                       accept: ".db,.sqlite3", 
+                       required: true,
+                       class: "block w-full text-sm text-slate-500 file:mr-4 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-primary-50 file:text-primary-700 hover:file:bg-primary-100 cursor-pointer" %>
+      
+      <button type="button" 
+              onclick="document.getElementById('formularz-importu-bazy').submit();"
+              class="px-5 py-2.5 bg-primary-600 hover:bg-primary-700 text-white font-medium rounded-xl transition-colors shadow-sm cursor-pointer whitespace-nowrap">
+        Zaimportuj
+      </button>
     <% end %>
   </div>
 </div>
