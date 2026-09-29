@@ -1,0 +1,16 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: bookoteka_server
+    restart: unless-stopped
+    ports:
+      - "6789:80"
+    environment:
+      - SECRET_KEY_BASE=efd063285d3fdc512a987a5744f0253151d8820ba59833cb58d03da5d53d6ff46bf76e3a4118320d4815dca186a0679b743c238bfa6f52c0aabd9d1410c69bc8
+    volumes:
+      - dane_storage:/rails/storage
+
+volumes:
+  dane_storage:

@@ -1,5 +1,6 @@
 Grover.configure do |config|
   config.options = {
+    executable_path: ENV.fetch("GROVER_CHROMIUM_PATH", "/usr/bin/chromium"),
     format: "A4",
     print_background: true,
     prefer_css_page_size: true,
@@ -17,5 +18,3 @@ Grover.configure do |config|
     ]
   }
 end
-sciezka_globalnych_modulow = `npm root -g`.strip
-ENV["NODE_PATH"] = sciezka_globalnych_modulow if sciezka_globalnych_modulow.present?
