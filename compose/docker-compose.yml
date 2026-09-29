@@ -1,0 +1,36 @@
+# Przykładowy plik docker-compose.yml dla użytkownika
+# Jeśli jesteś użytkownikiem, to postępuj zgodnie z instrukcjami
+
+version: '3.8'
+
+services:
+  bookotekaserver:
+    # Pobieramy oficjalny obraz z publicznego rejestru organizacji bookoteka
+    image: ghcr.io/bookoteka/bookotekaserver:latest
+    container_name: bookotekaserver
+    
+    # Porty: Możesz zmienić lewą stronę (np. na 8080:3000), jeśli port 3000 jest zajęty.
+    # Prawa strona (3000) to port, na którym aplikacja nasłuchuje wewnątrz kontenera i NIE WOLNO jej zmieniać.
+    ports:
+      - "3000:3000"
+      
+    environment:
+      - RAILS_ENV=production
+      
+      # KLUCZ MASTER KEY: Każdy użytkownik musi wpisać tutaj swój unikalny klucz deszyfrujący 
+      # z pliku config/master.key swojej instancji aplikacji, żeby Railsy wstały.
+      - RAILS_MASTER_KEY=tutaj_wklej_swój_rails_master_key
+      
+      - DATABASE_URL=sqlite3:/rails/storage/production.sqlite3
+      
+    # WOLUMEN NIEŚMIERTELNY: Ten wpis gwarantuje, że baza danych i pliki zapisu 
+    # przetrwają każdą aktualizację obrazu i nie znikną po restarcie.
+    volumes:
+      - bookoteka_data:/rails/storage
+      
+    # Automatyczny restart kontenera po restarcie systemu lub awarii
+    restart: unless-stopped
+
+# Definicja wolumenu zarządzanego przez Dockera
+volumes:
+  bookoteka_data:
