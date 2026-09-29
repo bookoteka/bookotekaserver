@@ -1,5 +1,6 @@
 class UstawieniaController < ApplicationController
   def index
+    @gatunki = Gatunek.order(created_at: :asc)
   end
 
   def eksport

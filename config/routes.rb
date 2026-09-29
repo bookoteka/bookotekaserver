@@ -1,12 +1,9 @@
 Rails.application.routes.draw do
-  # Strona główna aplikacji (http://localhost:3000) będzie prowadzić do listy książek
   root "ksiazkas#index"
 
-  # Standardowy komplet ścieżek RESTful dla książek
   resources :ksiazkas
   resources :czasopismos
 
-  # Sprawdzenie stanu aplikacji
   get "up" => "rails/health#show", as: :rails_health_check
 
   resources :podsumowania, as: :podsumowanie, only: [:index, :new, :create, :show] do
@@ -27,4 +24,6 @@ Rails.application.routes.draw do
   get "ustawienia/eksport", to: "ustawienia#eksport", as: :eksport_ustawienia
 
   post "import_bazy", to: "bazy_imports#create", as: :import_bazy
+
+  resources :gatunki, only: [:create, :destroy]
 end
