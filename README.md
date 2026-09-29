@@ -31,3 +31,24 @@ Najprostszym sposobem na uruchomienie serwera jest skorzystanie z gotowego obraz
 3. W terminalu, w katalogu z plikiem konfiguracyjnym, wykonaj polecenie uruchomienia kontenera w tle:
    ```bash
    docker compose up -d
+   ```
+4. Aplikacja pobierze najnowszy publiczny obraz z rejestru organizacji i uruchomi się na wskazanym porcie.
+
+---
+
+## 🔒 Bezpieczeństwo i trwałość danych (Wolumeny)
+
+Aplikacja wykorzystuje mechanizm nazwanego wolumenu Dockera przypisanego do katalogu /rails/storage.
+
+* Dzięki temu wszystkie dane (baza danych SQLite oraz wygenerowane raporty) są w pełni bezpieczne i niezależne od samego kontenera.
+* Aktualizacja aplikacji do nowszej wersji za pomocą ponownego pobrania obrazu i restartu kontenera nie powoduje utraty zgromadzonych danych.
+
+---
+
+## ⚙️ Konfiguracja środowiskowa
+
+W pliku `compose/docker-compose.yml` możesz dostosować parametry uruchomieniowe:
+* **Porty**: Możesz zmienić port zewnętrzny mapowany na port wewnętrzny aplikacji (3000)
+* **Zmienne środowiskowe**:
+  - `RAILS_ENV=production` – tryb produkcyjny aplikacji (jednak nie zalecane jest zmienianie tej opcji)
+  - `RAILS_MASTER_KEY` – Twój klucz master key niezbędny do uruchomienia instancji Rails.
