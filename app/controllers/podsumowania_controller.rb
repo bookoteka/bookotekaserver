@@ -115,21 +115,20 @@ class PodsumowaniaController < ApplicationController
     @nazwa_miesiaca = SLOWNIK_MIESIECY[miesiac]
     @rok = rok
 
-    ksiazki_query = Ksiazka.includes(:gatuneks).where(przeczytano_w: poczatek_miesiaca..koniec_miesiaca)
-    czasopisma_query = Czasopismo.where(przeczytano_w: poczatek_miesiaca..koniec_miesiaca)
+    baza_ksiazki = Ksiazka.where(przeczytano_w: poczatek_miesiaca..koniec_miesiaca)
 
-    @lacznie_ksiazek = ksiazki_query.count
-    @lacznie_stron = ksiazki_query.sum(:strony) + czasopisma_query.sum(:strony)
+    @lacznie_ksiazek = baza_ksiazki.count
+    @lacznie_stron = baza_ksiazki.sum(:strony)
 
-    @rozklad_formatow = ksiazki_query.group(:format_ksiazki).count
-    @rozklad_ocen = ksiazki_query.group(:ocena).count
+    @rozklad_formatow = baza_ksiazki.group(:format_ksiazki).count
+    @rozklad_ocen = baza_ksiazki.group(:ocena).count
 
     @statystyki_gatunkow = Gatunek.joins(:ksiazkas)
                                   .where(ksiazkas: { przeczytano_w: poczatek_miesiaca..koniec_miesiaca })
                                   .group("gatuneks.nazwa")
                                   .count
 
-    @ksiazki = ksiazki_query.map do |k|
+    @ksiazki = baza_ksiazki.includes(:gatuneks).map do |k|
       {
         tytul: k.tytul,
         autor: k.autor,
@@ -138,14 +137,6 @@ class PodsumowaniaController < ApplicationController
         ocena: k.ocena,
         gatunki: k.gatuneks.map(&:nazwa),
         strony: k.strony
-      }
-    end
-
-    @czasopisma = czasopisma_query.map do |c|
-      {
-        nazwa: c.tytul,
-        numer: c.numer_wydania,
-        strony: c.strony
       }
     end
   end
@@ -156,21 +147,20 @@ class PodsumowaniaController < ApplicationController
 
     @rok = rok
 
-    ksiazki_query = Ksiazka.includes(:gatuneks).where(przeczytano_w: poczatek_roku..koniec_roku)
-    czasopisma_query = Czasopismo.where(przeczytano_w: poczatek_roku..koniec_roku)
+    baza_ksiazki = Ksiazka.where(przeczytano_w: poczatek_roku..koniec_roku)
 
-    @lacznie_ksiazek = ksiazki_query.count
-    @lacznie_stron = ksiazki_query.sum(:strony) + czasopisma_query.sum(:strony)
+    @lacznie_ksiazek = baza_ksiazki.count
+    @lacznie_stron = baza_ksiazki.sum(:strony)
 
-    @rozklad_formatow = ksiazki_query.group(:format_ksiazki).count
-    @rozklad_ocen = ksiazki_query.group(:ocena).count
+    @rozklad_formatow = baza_ksiazki.group(:format_ksiazki).count
+    @rozklad_ocen = baza_ksiazki.group(:ocena).count
 
     @statystyki_gatunkow = Gatunek.joins(:ksiazkas)
                                   .where(ksiazkas: { przeczytano_w: poczatek_roku..koniec_roku })
                                   .group("gatuneks.nazwa")
                                   .count
 
-    @ksiazki = ksiazki_query.map do |k|
+    @ksiazki = baza_ksiazki.includes(:gatuneks).map do |k|
       {
         tytul: k.tytul,
         autor: k.autor,
@@ -180,15 +170,6 @@ class PodsumowaniaController < ApplicationController
         gatunki: k.gatuneks.map(&:nazwa),
         miesiac: k.zamien_miesiac_na_slowo,
         strony: k.strony
-      }
-    end
-
-    @czasopisma = czasopisma_query.map do |c|
-      {
-        nazwa: c.tytul,
-        numer: c.numer_wydania,
-        miesiac: c.zamien_miesiac_na_slowo,
-        strony: c.strony
       }
     end
   end

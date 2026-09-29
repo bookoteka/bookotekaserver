@@ -22,14 +22,6 @@
         Pobierz PDF
       <% end %>
 
-      <!-- Przycisk wysyłki e-mailem -->
-      <%= button_to "/podsumowania/wyslij_email?nazwa=#{ERB::Util.url_encode(params[:id])}", method: :post, class: "inline-flex items-center gap-2 bg-primary-600 hover:bg-primary-700 text-white font-medium px-4 py-2 rounded-lg shadow-sm transition-colors text-sm cursor-pointer" do %>
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-        </svg>
-        Wyślij na e-mail
-      <% end %>
-
       <!-- Przycisk usunięcia PDF -->
       <%= button_to usun_podsumowanie_index_path(nazwa: params[:id]), method: :delete, data: { turbo_confirm: "Czy na pewno chcesz usunąć ten plik PDF?" }, class: "inline-flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white font-medium px-4 py-2 rounded-lg shadow-sm transition-colors text-sm cursor-pointer" do %>
         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
